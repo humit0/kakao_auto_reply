@@ -2,7 +2,7 @@
 $ADMIN_INFO = NULL;
 $DEFAULT_KEYBOARD = NULL;
 // Update your base url.
-define("BASE_URL", "http://kakao.humit.tk/");
+define("BASE_URL", "");
 // Only access kakao server or not.
 define("IP_CHECK", TRUE);
 // Show all warnings or not.
