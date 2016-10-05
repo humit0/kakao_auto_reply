@@ -17,8 +17,8 @@ if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== TRUE) {
 
 $action = isset($_GET['action']) ? $_GET['action'] : 'default';
 
-$title = array('default' => '관리자 페이지', 'add' => '버튼 추가하기', 'keyboard' => 'Home Keyboard 보기', 'find' => '파일명 찾기', 'test' => '테스트 하기', 'logout' => '로그아웃');
-$script_lists = array('add' => 'add_button.min.js', 'test' => 'kakao_test.min.js');
+$title = array('default' => '관리자 페이지', 'add' => '버튼 추가하기', 'keyboard' => 'Home Keyboard 보기 / 수정', 'find' => '파일명 찾기', 'test' => '테스트 하기', 'logout' => '로그아웃');
+$script_lists = array('add' => 'add_button.min.js', 'keyboard' => 'keyboard_update.min.js', 'test' => 'kakao_test.min.js');
 
 if ($_GET['post'] !== "1"):
 ?>
@@ -168,13 +168,29 @@ switch ($action) {
         endif;
         break;
     case "keyboard":
+        if (!isset($_GET['post']) || $_GET['post'] !== "1"):
 ?>
-    <div class="chips">
-        <?php foreach ($DEFAULT_KEYBOARD as $button): ?>
-            <div class="chip"><?= $button ?></div>
-        <?php endforeach; ?>
-    </div>
+            <div id="keyboard_chips" class="chips chips-initial">
+                
+            </div>
+            <a class="waves-effect waves-light btn" onclick="update_home_keyboard()">수정하기</a>
+            <form id="update_keyboard" action="<?= $_SERVER['PHP_SELF'] ?>?action=keyboard&amp;post=1" method="post">
+
     <?php
+        else:
+            $result = set_default_buttons(explode("\r\n", $_POST['default_buttons']));
+            if ($result):
+?>
+    <script>alert("Keyboard 설정 완료");
+        location.href = "<?= $_SERVER['PHP_SELF'] ?>?action=keyboard";</script>
+<?php
+            else:
+?>
+    <script>alert("Keyboard 설정 실패");
+        history.back();</script>
+<?php
+            endif;
+        endif;
         break;
     case "find":
         ?>
