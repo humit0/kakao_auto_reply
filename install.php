@@ -11,7 +11,7 @@ include_once 'lib.php';
 
 $no = isset($_GET['no']) ? intval($_GET['no']) : 1;
 $current_url = $_SERVER['PHP_SELF'];
-if (session_status() == PHP_SESSION_NONE) {
+if (!is_session_start()) {
     session_start();
 }
 

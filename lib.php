@@ -47,7 +47,7 @@ function ip_check()
         return TRUE;
     }
     // check it https://github.com/plusfriend/auto_reply#71-proxy-server-information
-    $allowed_ips = ["110.76.143.234", "110.76.143.235", "110.76.143.236"];
+    $allowed_ips = array("110.76.143.234", "110.76.143.235", "110.76.143.236");
     $ip = $_SERVER['REMOTE_ADDR'];
     if (in_array($ip, $allowed_ips)) {
         return TRUE;
@@ -264,4 +264,21 @@ function file_download($filename, $path = MESSAGE_PATH)
     header('Content-Length: ' . filesize($file));
     readfile($file);
     return TRUE;
+}
+
+/**
+ * Check session started or not.
+ *
+ * @return bool
+ */
+function is_session_start()
+{
+    if (php_sapi_name() !== 'cli') {
+        if (version_compare(phpversion(), '5.4.0', '>=') ) {
+            return session_status() === PHP_SESSION_ACTIVE ? TRUE : FALSE;
+        } else {
+            return session_id() === '' ? FALSE : TRUE;
+        }
+    }
+    return FALSE;
 }

@@ -7,11 +7,12 @@
  * @license GPLv3
  */
 include_once "lib.php";
+
 if (!is_installed()) {
     exit('Need to install! <a href="' . BASE_URL . 'install.php">Install</a>');
 }
 
-if (session_status() == PHP_SESSION_NONE) {
+if (!is_session_start()) {
     session_start();
 }
 
@@ -59,7 +60,7 @@ switch ($is_ok) {
           </div>
           <div class="row">
             <div class="input-field col s12">
-              <input type="submit" class="btn waves-effect waves-light col s12" value="로그인">
+              <button type="submit" class="btn waves-effect waves-light col s12">로그인</button>
             </div>
           </div>
         </form>

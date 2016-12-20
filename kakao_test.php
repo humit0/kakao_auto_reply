@@ -6,8 +6,10 @@
  * @copyright 2016 Jang Joonho
  * @license GPLv3
  */
+
 include_once "lib.php";
-if (session_status() == PHP_SESSION_NONE) {
+
+if (!is_session_start()) {
     session_start();
 }
 

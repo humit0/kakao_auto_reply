@@ -7,6 +7,7 @@
  * @license GPLv3
  */
 include_once 'lib.php';
+
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -20,7 +21,7 @@ $action = isset($_GET['action']) ? $_GET['action'] : 'default';
 $title = array('default' => '관리자 페이지', 'add' => '버튼 추가하기', 'keyboard' => 'Home Keyboard 보기 / 수정', 'find' => '파일명 찾기', 'test' => '테스트 하기', 'logout' => '로그아웃');
 $script_lists = array('add' => 'add_button.min.js', 'keyboard' => 'keyboard_update.min.js', 'test' => 'kakao_test.min.js');
 
-if ($_GET['post'] !== "1"):
+if (!isset($_GET['post']) || $_GET['post'] !== "1"):
 ?>
 <!DOCTYPE html>
 <html lang="ko">
@@ -43,7 +44,7 @@ if ($_GET['post'] !== "1"):
     <div class="col l3 s12">
       <div class="collection">
         <a class="collection-item" href="<?= $_SERVER['PHP_SELF'] ?>?action=add">버튼 추가하기</a>
-        <a class="collection-item" href="<?= $_SERVER['PHP_SELF'] ?>?action=keyboard">Home Keyboard 보기</a>
+        <a class="collection-item" href="<?= $_SERVER['PHP_SELF'] ?>?action=keyboard">Home Keyboard 보기 / 수정</a>
         <a class="collection-item" href="<?= $_SERVER['PHP_SELF'] ?>?action=find">파일명 찾기</a>
         <a class="collection-item" href="<?= $_SERVER['PHP_SELF'] ?>?action=test">테스트 하기</a>
         <a class="collection-item" href="<?= $_SERVER['PHP_SELF'] ?>?action=logout">로그아웃</a>
@@ -242,7 +243,7 @@ switch ($action) {
         break;
 }
 
-if ($_GET['post'] !== "1"):
+if (!isset($_GET['post']) || $_GET['post'] !== "1"):
 ?>
 
     </div>
